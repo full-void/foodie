@@ -2,6 +2,10 @@
 
 A RESTful full stack web application with focus on creating a restaurant sharing and reviewing website.
 
+## Live Demo
+
+Here's the live demo of the app on [heroku](https://foodie-demo.herokuapp.com/)
+
 ## Routes Documentation
 
 The routes have been documented on Postman. They are present [here](https://documenter.getpostman.com/view/5273181/RWaLwTvC)
