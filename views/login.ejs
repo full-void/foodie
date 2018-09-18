@@ -1,0 +1,28 @@
+<% include ./partials/header %>
+
+<div class="row">
+    <div class="space"></div>
+    <h1 style="text-align: center">Login</h1>
+    <div class="style-form">
+        <form action="/login" method="post">
+            <div class="form-group">
+                <label for="username">User Name</label>
+                <input class="form-control" type="text" name="username" autocomplete="off" required/>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input class="form-control" type="password" name="password" autocomplete="off" required/>
+            </div>
+            <div class="form-group">
+                <button class="btn grow-small btn-md btn-primary btn-block">Login</button>
+            </div>
+            <span>Forgot your password? <a href="/forgotPassword">Reset password</a></span>
+            <hr>
+            <span>New to foodie? <a href="/signup">Sign up now!</a></span>
+        </form>
+        <hr>
+        <a href="/locations">Back</a>
+    </div>
+</div>
+
+<% include ./partials/footer %>

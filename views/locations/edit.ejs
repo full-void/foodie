@@ -1,0 +1,46 @@
+<% include ../partials/header %>
+<div class="row">
+  <h1 style="text-align: center;">Edit <%= location.name %></h1>
+  <div class="style-form">
+    <form id="location-edit-form" action="/locations/<%= location._id %>?_method=PUT" method="POST">
+
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input class="form-control" type="text" name="name" value="<%= location.name %>" autocomplete="off" />
+        </div>
+
+
+        <div class="form-group">
+            <label for="image">Image</label>
+            <input class="form-control" type="text" name="image" autocomplete="off" value="<%=location.image%>" required>
+        </div>
+
+        <div class="form-group">
+            <label for="price">Price</label>
+            <input class="form-control" type="number" name="cost" value="<%= location.cost %>" min="0.01" step="0.01" autocomplete="off" />
+        </div>
+
+        <div class="form-group">
+            <label for="location">Location</label>
+            <input class="form-control" type="text" name="location" id="location" value="<%= location.location %>" autocomplete="off" />
+        </div>
+
+        <div class="form-group">
+            <label for="description">Description</label>
+            <textarea class="form-control" form="location-edit-form" cols="70" rows="5" name="description" autocomplete="off" ><%= location.description %></textarea>
+        </div>
+
+        <div class="form-group">
+            <button class="btn btn-md btn-primary grow-small btn-block">Update</button>
+        </div>
+    </form>
+    <a href="/locations/<%= location._id %>">Back</a>
+  </div>
+</div>
+
+<style>
+    input {
+        padding-bottom: 19px;
+    }
+</style>
+<% include ../partials/footer %>

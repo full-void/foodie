@@ -1,0 +1,135 @@
+<% include ../partials/header %>
+
+<div class="space"></div>
+<div class="container">
+
+    <div class="row">
+        <div class="col-md-3">
+            <div class="location-name text-center"><h4>Location</h4></div>
+            <div class="space"></div>
+            <div class="embed-responsive embed-responsive-4by3">
+                <iframe class="embed-responsive-item"
+                        width=auto
+                        height=auto
+                        frameborder="0" style="border:0"
+                        src="https://www.google.com/maps/embed/v1/view?key=<%= process.env.GOOGLE_API_KEY %>&center=<%= location.lat %>,<%= location.lng %>&zoom=18&maptype=satellite"
+                        allowfullscreen>
+                </iframe>
+            </div>
+        </div>
+
+        <div class="col-md-9">
+            <div class="thumbnail">
+                <img class="img-responsive full-width" src="<%= location.image %>">
+                <div class="caption">
+                    <h4 class="pull-right">$<%= location.cost %>/per person</h4>
+                    <h2 class="location-name"><%= location.name %></h2>
+                    <p><%= location.description %></p>
+                    <p>
+                        <em>Submitted By <a
+                                    href="/users/<%= location.author._id.toString() %>"><%= location.author.username %></a>, <%= moment(location.createdOn).fromNow() %>
+                        </em>
+                    </p>
+                    <% if (currentUser && location.author._id.equals(currentUser._id.toString()) || currentUser && currentUser.isAdmin) { %>
+                        <a class="btn btn-warning btn-sm" href="/locations/<%= location._id.toString() %>/edit">Edit</a>
+                        <form class="delete-form" action="/locations/<%= location._id.toString() %>?_method=DELETE" method="POST">
+                            <button class="btn btn-danger btn-sm">Delete</button>
+                        </form>
+                    <% } %>
+                </div>
+            </div>
+            <div class="well">
+                <div class="text-right">
+                    <a class="btn btn-success btn-sm pull-right" role="button" data-toggle="collapse"
+                       href="#collapseComment" aria-expanded="false" aria-controls="collapseComment">
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add new comment
+                    </a>
+                </div>
+                <!--Comment section title-->
+                <h4><span class="glyphicon glyphicon glyphicon-comment" aria-hidden="true"></span>
+                    <strong>Comments</strong>
+                </h4>
+                <!--Collapse Add a comment form START-->
+                <div class="collapse" id="collapseComment">
+                    <div class="well" style="border-left: 3px solid #00A546;">
+                        <% if (!currentUser) { %>
+                            <h5>You need to be logged in first. Click <a href="/login">here</a> to go to the login page.
+                            </h5>
+                        <% } %>
+                        <% if (currentUser) { %>
+                            <h4>Say something about this location <span class="glyphicon glyphicon glyphicon-pencil"
+                                                                        aria-hidden="true"></span></h4>
+                            <form id="add-comment-form" action="/locations/<%= location._id.toString() %>/comments" method="POST">
+                                <textarea class="form-control" name="comment[text]"
+                                          placeholder="What are you thinking about?" form="add-comment-form" rows="5"
+                                          cols="70" autocomplete="off"></textarea>
+                                <button class="btn btn-success btn-xs">Send</button>
+                            </form>
+                        <% } %>
+                    </div>
+                </div>
+                <!--Collapse Add a comment form END-->
+                <hr>
+
+                <!--Check if there are comments-->
+                <% if (location.comments.length === 0) { %>
+                    <em style="color: grey;">No comments yet. Say something about this location!</em>
+                <% } %>
+                <% location.comments.forEach(comment => { %>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <strong>
+                                <a href="/users/<%= comment.author._id.toString() %>"><%= comment.author.username %></a>
+                            </strong>
+                            <span class="pull-right"><%= moment(comment.createdOn).fromNow() %></span>
+                            <p>
+                                <%= comment.text %>
+                            </p>
+                            <% if (currentUser && comment.author._id.equals(currentUser._id.toString()) || currentUser && currentUser.isAdmin) { %>
+                                <a
+                                        class="btn btn-warning btn-xs"
+                                        role="button"
+                                        data-toggle="collapse"
+                                        href="#collapseEdit<%= comment._id.toString() %>"
+                                        aria-expanded="false"
+                                        aria-controls="collapse<%= comment._id.toString() %>"
+                                >Edit</a>
+                                <form
+                                        id="delete-form"
+                                        action="/locations/<%= location._id.toString() %>/comments/<%= comment._id.toString() %>?_method=DELETE"
+                                        method="POST"
+                                        style="display: inline;"
+                                >
+                                    <button class="btn btn-danger btn-xs">Delete</button>
+                                </form>
+                                <!--Edit comment form-->
+                                <!--make each id attribute unique by adding comment._id.toString-->
+                                <div class="collapse" id="collapseEdit<%= comment._id.toString() %>">
+                                    <div class="well" style="border-left: 3px solid #ffbb33; margin-top: 15px;">
+                                        <h4>Edit your comment <span class="glyphicon glyphicon-edit"
+                                                                    aria-hidden="true"></span></h4>
+                                        <form id="edit-comment-form"
+                                              action="/locations/<%= location._id.toString() %>/comments/<%= comment._id.toString() %>?_method=PUT"
+                                              method="POST">
+
+                                            <textarea class="form-control" name="comment[text]" form="edit-comment-form"
+                                                      rows="5" cols="70" wrap="hard"><%= comment.text %></textarea>
+
+                                            <button class="btn btn-warning btn-xs">Save</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            <% } %>
+                            <hr>
+                        </div>
+                    </div>
+                <% }); %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+
+</style>
+<% include ../partials/footer %>

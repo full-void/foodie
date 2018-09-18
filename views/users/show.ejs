@@ -1,0 +1,36 @@
+<% include ../partials/header %>
+<div class="space"></div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-3 col-sm-5 bg-grey profile-item">
+            <h2><%= user.firstName + " " + user.lastName %></h2>
+            <div class="thumbnail bg-grey">
+                <img src="<%= user.avatar %>" alt="user profile image">
+            </div>
+            <div class="center">
+                <div class="caption"><a href="mailto:<%= user.email %>"><%= user.email %></a></div>
+                <div class="space"></div>
+                <a class="btn btn-warning btn-sm" href="/users/<%= user._id %>/edit">Edit Profile</a>
+            </div>
+            <div class="space"></div>
+        </div>
+        <div class="container-fluid col-md-8 col-sm-6 profile-item bg-grey">
+            <h3><%= user.username %>'s locations</h3>
+            <hr>
+            <div class="grid">
+                <% locations.forEach(location => { %>>
+                        <div class="thumbnail grid-item">
+                            <img src="<%= location.image %>" alt="<%= location.name %>">
+                            <div class="caption">
+                                <h4 class="caption"><a class="btn btn-primary" href="/locations/<%= location.id %>"><%= location.name %></a></h4>
+                            </div>
+                        </div>
+                <% }); %>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="space"></div>
+
+
+<% include ../partials/footer %>

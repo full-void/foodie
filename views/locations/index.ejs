@@ -1,0 +1,49 @@
+<% include ../partials/header %>
+
+
+<header class="jumbotron">
+    <div class="container-fluid">
+        <h1><span class="glyphicon glyphicon-glass"></span><span class="logo">foodie!</span></h1>
+        <p>Delicious food at your finger tips</p>
+
+        <form class="form-inline" action="/locations" method="GET">
+            <div class="input-group">
+                        <span class="input-group-btn">
+                            <button class="search-btn btn btn-default" type="button"><span
+                                        class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                        </span>
+                <label for="search"></label>
+                <input class="form-control" type="text" name="search" placeholder="Search..."
+                       autocomplete="off"/>
+            </div>
+        </form>
+
+    </div>
+</header>
+
+<div class="container">
+    <a class="btn btn-primary pull-right" href="/locations/new">
+        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+        Share New location
+    </a>
+
+    <hr>
+
+    <div class="grid">
+        <% if (noMatch !== null) { %>
+            <h4><%= noMatch %></h4>
+        <% } else { locations.forEach(location => { %>
+            <div class="grid-item text-center">
+                <img class="full-width" src="<%= location.image %>" alt="<%= location.name %>"/>
+                <h4><%= location.name %></h4>
+                <p>
+                    <a class="btn btn-primary btn-sm btn-b-mg" href="/locations/<%= location._id %>">
+                        More Info
+                    </a>
+                </p>
+            </div>
+        <% }) } %>
+    </div>
+</div>
+<div class="space"></div>
+<% include ../partials/footer %>

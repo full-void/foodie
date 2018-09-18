@@ -1,0 +1,39 @@
+<% include ../partials/header %>
+<div class="row">
+  <h1 style="text-align: center;">Create a New location</h1>
+  <div class="style-form">
+    <form id="new-location-form" action="/locations" method="POST">
+      <div class="form-group">
+          <label for="name">Name</label>
+          <input class="form-control" type="text" name="name" placeholder="Tasty Food" autocomplete="off" required />
+      </div>
+
+        <div class="form-group">
+            <label for="image">Image</label>
+            <input class="form-control" type="text" name="image" autocomplete="off" placeholder="www.website.com/image.jpg" required />
+        </div>
+
+        <div class="form-group">
+            <label for="price">Approximate Price for One</label>
+            <input class="form-control" type="number" name="cost" placeholder="19.99" min="0.01" step="0.01" autocomplete="off" required />
+        </div>
+
+        <div class="form-group">
+            <label for="location">Location</label>
+            <input class="form-control" type="text" name="location" id="location" placeholder="California, USA" autocomplete="off" />
+        </div>
+
+        <div class="form-group">
+            <label for="description">Description</label>
+            <textarea class="form-control" form="new-location-form" cols="70" rows="5" name="description" placeholder="Delicious food!!!" autocomplete="off" ></textarea>
+        </div>
+
+        <div class="form-group">
+            <button class="btn btn-md grow-small btn-primary btn-block">Submit!</button>
+        </div>
+    </form>
+    
+    <a href="/locations">Back</a>
+  </div>
+</div>
+<% include ../partials/footer %>
