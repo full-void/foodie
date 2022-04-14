@@ -10,7 +10,7 @@
   "author": "Lucas Weng",
   "license": "MIT",
   "dependencies": {
-    "async": "^2.6.0",
+    "async": "^3.2.2",
     "bluebird": "^3.5.2",
     "body-parser": "^1.18.2",
     "cookie-session": "^2.0.0-beta.3",
